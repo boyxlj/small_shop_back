@@ -67,7 +67,6 @@ export default function UpdateInfoModel(props) {
       prePrice: data[0]?.prePrice,
       price: data[0]?.price,
       detailDesc: data[0]?.detailDesc,
-      tag: data[0]?.tag,
     })
   }
 
@@ -151,6 +150,7 @@ export default function UpdateInfoModel(props) {
           >
             <Select
               placeholder="请选择商品分类"
+              // onChange={onGenderChange}
               allowClear
             >
               {categoryData?.map(item => (
@@ -158,13 +158,6 @@ export default function UpdateInfoModel(props) {
               ))}
 
             </Select>
-          </Form.Item>
-          <Form.Item
-            className={style.form_item}
-            name="tag"
-            label="商品标签"
-          >
-            <Input maxLength={6} placeholder="请填写商品标签" />
           </Form.Item>
           <Form.Item
             className={style.form_item}

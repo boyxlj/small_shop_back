@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import style from "./style/index.module.scss"
-import { Modal, message, Form, Upload, Input, Select, InputNumber } from 'antd';
+import { Modal, message, Form, Upload,Radio, Input, Select, InputNumber } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditorInfo } from "../../store"
 import { PlusOutlined } from '@ant-design/icons';
-import { categoryList, selectShopAnyOne, updateShopBaseInfo } from "../../../../api/request"
+import { categoryList, updateShopBaseInfo } from "../../../../api/request"
 import { uploadImgUrl } from '../../../../api/uploadImg';
 import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
@@ -88,21 +88,26 @@ export default function UpdateInfoModel(props) {
 
   const handleOk = async () => {
     await form.validateFields()
-    if (!fileList1.length) return message.warning("请上传一张商品图片")
-    const pre = fileList1[0]?.data
-    const news = fileList1[0]?.response?.temp_pathList[0]
-    let titleImg = ''
-    news ? titleImg = news : titleImg = pre
-    const obj = { ...form.getFieldsValue(true), titleImg, detailId }
-    console.log(obj)
-    const { data: res } = await updateShopBaseInfo(obj)
-    if (res.code != 200) return message.error("编辑商品信息失败")
+    if (!fileList1.length && !swiperLinksValue) return message.warning("请上传一张商品图片")
+    let titleImg= null
+    if(value==1){
+      titleImg =swiperLinksValue 
+    }else{
+      const pre = fileList1[0]?.data
+    const news =  fileList1[0]?.response?.temp_pathList[0]
+     news?titleImg= news:titleImg = pre
+    }
+    const obj = {...form.getFieldsValue(true),titleImg,detailId}
+    const {data:res} = await updateShopBaseInfo(obj)
+    if(res.code!=200) return message.error("编辑商品信息失败")
     message.success("编辑商品信息成功")
+    setSwiperLinksValue("")
     reLoad()
     dispatch(setEditorInfo(false))
   };
   const handleCancel = () => {
     form.resetFields()
+    setSwiperLinksValue("")
     dispatch(setEditorInfo(false))
   };
 
@@ -110,12 +115,10 @@ export default function UpdateInfoModel(props) {
     //切换是否上传图片或引入外部链接
     const [value, setValue] = useState(2);
     const onChange = (e) => {
-      setFileList1([])
       setValue(e.target.value);
     }
     const [swiperLinksValue, setSwiperLinksValue] = useState("");
     const ChangeRadioLinks = (e)=>{
-      console.log(e.target.value)
       setSwiperLinksValue(e.target.value);
     }
   return (
@@ -141,13 +144,12 @@ export default function UpdateInfoModel(props) {
           </Form.Item>
           <Form.Item
             className={style.form_item}
-            name="parent"
+            name="tag"
             label="所属分类"
             rules={[{ required: true, message: '商品所属分类必须填写' }]}
           >
             <Select
               placeholder="请选择商品分类"
-              // onChange={onGenderChange}
               allowClear
             >
               {categoryData?.map(item => (
@@ -158,9 +160,15 @@ export default function UpdateInfoModel(props) {
           </Form.Item>
           <Form.Item
             className={style.form_item}
+            name="title"
+            label="商品标签"
+          >
+            <Input maxLength={6} placeholder="请填写商品标签" />
+          </Form.Item>
+          <Form.Item
+            className={style.form_item}
             name="prePrice"
             label="商品原价"
-            rules={[{ required: true, message: '商品原价必须填写' }]}
           >
             <InputNumber style={{ width: "100%" }} min={1} max={100000} placeholder="请填写商品原价" />
           </Form.Item>
@@ -184,7 +192,18 @@ export default function UpdateInfoModel(props) {
             className={style.form_item}
             label="商品图片"
           >
-            <>
+            <Radio.Group className={style.radio} style={{margin:'5px 0 20px 0'}}   onChange={onChange} value={value}>
+                    <Radio value={2}>上传图片</Radio>
+                    <Radio value={1}>引入链接</Radio>
+                  </Radio.Group>
+             {value==1 &&(
+                 <div  className={style.btns}>
+                 <Input className={style.swiperInput} onChange={ChangeRadioLinks} value={swiperLinksValue} maxLength={400} placeholder="请填写商品轮播链接地址" />
+                 {/* <Button  className={style.swiperInputAdd} onClick={addSwiper} type='primary'>添加</Button> */}
+               </div>
+             )} 
+             {value==2 &&(
+              <>
               <Upload
                 maxCount={1}
                 action={uploadImgUrl}
@@ -206,6 +225,8 @@ export default function UpdateInfoModel(props) {
                 />
               </Modal>
             </>
+             )}
+            
           </Form.Item>
         </Form>
       </Modal>

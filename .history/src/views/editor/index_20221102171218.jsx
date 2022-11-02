@@ -244,7 +244,7 @@ const removeSwiper = (id)=>{
   }
 
   
-  const { title, descs, tag,parent, prePrice, price, detailDesc } = form.getFieldsValue(true)
+  const { title, descs, parent, prePrice, price, detailDesc } = form.getFieldsValue(true)
   return (
     <div className={style.box}>
       <Steps className={style.steps} current={current}>
@@ -417,8 +417,8 @@ const removeSwiper = (id)=>{
               </li>
               <li><span>商品名称:</span>{title}</li>
               <li><span>基本描述:</span>{title}</li>
-              {tag &&<li><span>商品标签:</span><Tag color="#87d068">{tag}</Tag></li>}
-              <li><span>所属分类:</span><Tag color="#f50">{getCateGoryName(categoryData,parent)}</Tag></li>
+              {parent &&<li><span>商品标签:</span><Tag color="#f50">{getCateGoryName(categoryData,parent)}</Tag></li>}
+              <li><span>所属分类:</span><Tag color="#f50">{parent}</Tag></li>
               {prePrice&& <li><span>商品原价:</span> <Tag color="cyan">{prePrice}元</Tag></li>}
               <li><span>商品现价:</span> <Tag color="red">{price}元</Tag></li>
               <li><span>详细描述:</span><p>{detailDesc}</p></li>

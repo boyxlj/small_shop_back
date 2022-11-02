@@ -5,7 +5,7 @@ import {
   BarsOutlined,
   SmileOutlined,
   SlidersOutlined,
-  BulbOutlined,
+  BulbOutlined
 } from '@ant-design/icons';
 
 export default [

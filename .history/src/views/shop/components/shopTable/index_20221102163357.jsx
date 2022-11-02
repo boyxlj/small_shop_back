@@ -2,11 +2,16 @@ import React from 'react'
 import { Button,Tag, Table, message, Popconfirm } from 'antd';
 import style from "./style/index.module.scss"
 import { getDate } from "../../../../utils/time"
+// import { useDispatch, } from 'react-redux';
+// import { changeIsShow } from "../../store"
 import { deleteCategory } from "../../../../api/request"
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 export default function ShopTable(props) {
   const { shopData,pageOn,getPageOn, reLoad } = props
   const navigate = useNavigate()
+  // const dispatch = useDispatch()
   const columns = [
     {
       title: '序号',
@@ -23,7 +28,6 @@ export default function ShopTable(props) {
     {
       title: '商品名称',
       dataIndex: 'title',
-      width:130,
       render:(value,a)=>(
         <div 
         className={style.titles} 
@@ -35,14 +39,16 @@ export default function ShopTable(props) {
     {
       title: '商品简介',
       dataIndex: 'descs',
-      width:130,
+      width:200
     },
     {
       title: '原价',
       dataIndex: 'prePrice',
       render:(value)=>{
-       return Number(value)?<Tag color="geekblue">{value}元</Tag>:<Tag color="geekblue">未标注原价</Tag>
+        value?<Tag color="geekblue">{value}元</Tag>:<Tag color="geekblue">未标注原价</Tag>
+
       }
+      
     },
     {
       title: '现价',
@@ -50,13 +56,6 @@ export default function ShopTable(props) {
       render:(value)=>(
         <Tag color="magenta">{value}元</Tag>
       )
-    },
-    {
-      title: '标签',
-      dataIndex: 'tag',
-      render:(value)=>{
-       return value?<Tag color="blue">{value}</Tag>:<span>/</span>
-      }
     },
     {
       title: '上架时间',
@@ -84,6 +83,7 @@ export default function ShopTable(props) {
 
   //编辑按钮
   const editor = (detailId) => {
+    // dispatch(changeIsShow({ isShow: true, detailId }))
     navigate(`/details?detailId=${detailId}`)
   }
   //删除按钮

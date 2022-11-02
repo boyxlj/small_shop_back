@@ -6,6 +6,7 @@ import {
   SmileOutlined,
   SlidersOutlined,
   BulbOutlined,
+  TagsOutlined
 } from '@ant-design/icons';
 
 export default [
@@ -28,6 +29,11 @@ export default [
     key: '/category',
     icon: <PartitionOutlined />,
     label: '商品分类',
+  },
+  {
+    key: '/tags',
+    icon:<TagsOutlined />,
+    label: '商品标签',
   },
   {
     key: '/order',

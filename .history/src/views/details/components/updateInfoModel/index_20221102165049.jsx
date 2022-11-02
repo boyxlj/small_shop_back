@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import style from "./style/index.module.scss"
-import { Modal, message, Form,Radio,Button, Upload, Input, Select, InputNumber } from 'antd';
+import { Modal, message, Form, Upload,Radio, Input, Select, InputNumber } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEditorInfo } from "../../store"
 import { PlusOutlined } from '@ant-design/icons';
-import { categoryList,selectShopAnyOne,updateShopBaseInfo } from "../../../../api/request"
+import { categoryList, updateShopBaseInfo } from "../../../../api/request"
 import { uploadImgUrl } from '../../../../api/uploadImg';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
 const { TextArea } = Input;
 const getBase64 = (file) =>
@@ -50,40 +50,26 @@ export default function UpdateInfoModel(props) {
       </div>
     </div>
   );
-  const { detailId,reLoad,beginUpdate} = props
+  const { detailId, reLoad, data } = props
   useEffect(() => {
     getCategory()
     getShopData()
-  }, [])
- 
-  
+  }, [data])
   //获取商品信息
-  const getShopData = async()=>{
-    const {data:res} = await selectShopAnyOne(detailId)
-    if(res.code!=200){
-      message.error("数据异常")
-      dispatch(setEditorInfo(false))
-      return
-    }
-    const imgs = [{uid:123,data:res.data[0]?.titleImg}]
-    console.log("imgs.",imgs)
-      setFileList1(imgs)
-        form.setFieldsValue({
-          title:res.data[0]?.title,
-          descs:res.data[0]?.descs,
-          parent:res.data[0]?.parent,
-          prePrice:res.data[0]?.prePrice,
-          price:res.data[0]?.price,
-          detailDesc:res.data[0]?.detailDesc, 
-        })
-        // setSwiperLinksValue(res.data[0]?.titleImg)
+
+  const getShopData = async () => {
+    const imgs = [{ uid: 123, data: data[0]?.titleImg }]
+    setFileList1(imgs)
+    form.setFieldsValue({
+      title: data[0]?.title,
+      descs: data[0]?.descs,
+      parent: data[0]?.parent,
+      prePrice: data[0]?.prePrice,
+      price: data[0]?.price,
+      detailDesc: data[0]?.detailDesc,
+    })
   }
-  let indexs = 0
-  if(beginUpdate){
-    if(indexs)
-    getShopData()
-    indexs = 1
-  }
+
   //查询商品分类
   const getCategory = async () => {
     const { data: res } = await categoryList()
@@ -121,6 +107,7 @@ export default function UpdateInfoModel(props) {
   };
   const handleCancel = () => {
     form.resetFields()
+    setSwiperLinksValue("")
     dispatch(setEditorInfo(false))
   };
 
@@ -128,28 +115,12 @@ export default function UpdateInfoModel(props) {
     //切换是否上传图片或引入外部链接
     const [value, setValue] = useState(2);
     const onChange = (e) => {
-      setFileList1([])
       setValue(e.target.value);
     }
     const [swiperLinksValue, setSwiperLinksValue] = useState("");
     const ChangeRadioLinks = (e)=>{
-      console.log(e.target.value)
       setSwiperLinksValue(e.target.value);
     }
-    // //添加; -- 引入外部链接
-    // const addSwiper = async()=>{
-    //   if(!swiperLinksValue) return
-    //   const isCopy = fileList1.some(item=>item.url==swiperLinksValue)
-    //   if(isCopy) return message.warning("当前图片已存在，不可重复")
-    //   if(fileList1.length>=6) return message.warning("最多只能上传6张图片")
-    //   // setLoading(true)
-    //   // const {data:res} = await editorSwiperImg(detailId,swiperLinksValue).finally(()=>setLoading(false))
-    //   // if(res.code!=200) return message.error("添加失败")
-    //   // message.success("添加成功")
-    //   // setSwiperLinksValue('')
-    //   // reLoad()
-    //   // getSwiperOne()
-    // }
   return (
     <>
       <Modal width={600} title="编辑商品基本信息" okText="提交" cancelText="取消" keyboard={false} maskClosable={false} visible={isShowEditorInfo} onOk={handleOk} onCancel={handleCancel}>
@@ -190,9 +161,15 @@ export default function UpdateInfoModel(props) {
           </Form.Item>
           <Form.Item
             className={style.form_item}
+            name="title"
+            label="商品标签"
+          >
+            <Input maxLength={6} placeholder="请填写商品标签" />
+          </Form.Item>
+          <Form.Item
+            className={style.form_item}
             name="prePrice"
             label="商品原价"
-            rules={[{ required: true, message: '商品原价必须填写' }]}
           >
             <InputNumber style={{ width: "100%" }} min={1} max={100000} placeholder="请填写商品原价" />
           </Form.Item>

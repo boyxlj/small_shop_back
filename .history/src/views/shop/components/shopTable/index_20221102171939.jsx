@@ -2,11 +2,16 @@ import React from 'react'
 import { Button,Tag, Table, message, Popconfirm } from 'antd';
 import style from "./style/index.module.scss"
 import { getDate } from "../../../../utils/time"
+// import { useDispatch, } from 'react-redux';
+// import { changeIsShow } from "../../store"
 import { deleteCategory } from "../../../../api/request"
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 export default function ShopTable(props) {
   const { shopData,pageOn,getPageOn, reLoad } = props
   const navigate = useNavigate()
+  // const dispatch = useDispatch()
   const columns = [
     {
       title: '序号',
@@ -23,7 +28,6 @@ export default function ShopTable(props) {
     {
       title: '商品名称',
       dataIndex: 'title',
-      width:130,
       render:(value,a)=>(
         <div 
         className={style.titles} 
@@ -35,7 +39,7 @@ export default function ShopTable(props) {
     {
       title: '商品简介',
       dataIndex: 'descs',
-      width:130,
+      width:180
     },
     {
       title: '原价',

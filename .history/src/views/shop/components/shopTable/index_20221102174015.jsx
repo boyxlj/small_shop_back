@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ShopTable(props) {
   const { shopData,pageOn,getPageOn, reLoad } = props
   const navigate = useNavigate()
+  // const dispatch = useDispatch()
   const columns = [
     {
       title: '序号',

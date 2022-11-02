@@ -417,7 +417,7 @@ const removeSwiper = (id)=>{
               </li>
               <li><span>商品名称:</span>{title}</li>
               <li><span>基本描述:</span>{title}</li>
-              {tag &&<li><span>商品标签:</span><Tag color="#87d068">{tag}</Tag></li>}
+              {parent &&<li><span>商品标签:</span><Tag color="#f50">{tag}</Tag></li>}
               <li><span>所属分类:</span><Tag color="#f50">{getCateGoryName(categoryData,parent)}</Tag></li>
               {prePrice&& <li><span>商品原价:</span> <Tag color="cyan">{prePrice}元</Tag></li>}
               <li><span>商品现价:</span> <Tag color="red">{price}元</Tag></li>

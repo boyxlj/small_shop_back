@@ -9,7 +9,6 @@ import { categoryList, addShop, addShopSwiper } from "../../api/request"
 import { uploadImgUrl } from "../../api/uploadImg"
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
-import {getCateGoryName} from "../../utils/getCateGoryName"
 const { Option } = Select;
 const { Step } = Steps;
 const { TextArea } = Input;
@@ -230,6 +229,9 @@ const removeSwiper = (id)=>{
       setCurrent(current + 1);
     }
     if (current == 2) {
+      // let swiper = fileList.map(item=>item?.response?.temp_pathList[0])
+      // let titleImg = fileList1.map(item=>item?.response?.temp_pathList[0])
+      // let formValue = form.getFieldsValue(true)
     }
   };
   //上一步
@@ -242,9 +244,28 @@ const removeSwiper = (id)=>{
     sessionStorage.setItem("shopListPage",1)
     navigate("/shop")
   }
+  const onGenderChange = (value) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({
+          note: 'Hi, man!',
+        });
+        return;
 
+      case 'female':
+        form.setFieldsValue({
+          note: 'Hi, lady!',
+        });
+        return;
+
+      case 'other':
+        form.setFieldsValue({
+          note: 'Hi there!',
+        });
+    }
+  };
   
-  const { title, descs, tag,parent, prePrice, price, detailDesc } = form.getFieldsValue(true)
+  const { title, descs, parent, prePrice, price, detailDesc } = form.getFieldsValue(true)
   return (
     <div className={style.box}>
       <Steps className={style.steps} current={current}>
@@ -281,26 +302,28 @@ const removeSwiper = (id)=>{
             
               <Select
                 placeholder="请选择商品分类"
-                
+                onChange={onGenderChange}
                 allowClear
               >
                 {categoryData?.map(item => (
                   <Option key={item.detailId} value={item.detailId + ''}>{item.categoryName}</Option>
                 ))}
               </Select>
-              
-            </Form.Item>
-            <Form.Item
-              className={style.form_item}
-              name="tag"
-              label="商品标签"
-            >
-                <Input maxLength={6} placeholder="请填写商品标签" />
+              <Select
+                placeholder="请选择商品所属标签"
+                onChange={onGenderChange}
+                allowClear
+              >
+                {categoryData?.map(item => (
+                  <Option key={item.detailId} value={item.detailId + ''}>{item.categoryName}</Option>
+                ))}
+              </Select>
             </Form.Item>
             <Form.Item
               className={style.form_item}
               name="prePrice"
               label="商品原价"
+              rules={[{  message: '商品原价必须填写' }]}
             >
               <InputNumber style={{ width: "100%" }} min={1} max={100000} placeholder="请填写商品原价" />
             </Form.Item>
@@ -417,9 +440,8 @@ const removeSwiper = (id)=>{
               </li>
               <li><span>商品名称:</span>{title}</li>
               <li><span>基本描述:</span>{title}</li>
-              {tag &&<li><span>商品标签:</span><Tag color="#87d068">{tag}</Tag></li>}
-              <li><span>所属分类:</span><Tag color="#f50">{getCateGoryName(categoryData,parent)}</Tag></li>
-              {prePrice&& <li><span>商品原价:</span> <Tag color="cyan">{prePrice}元</Tag></li>}
+              <li><span>所属分类:</span><Tag color="#f50">{parent}</Tag></li>
+              <li><span>商品原价:</span> <Tag color="cyan">{prePrice}元</Tag></li>
               <li><span>商品现价:</span> <Tag color="red">{price}元</Tag></li>
               <li><span>详细描述:</span><p>{detailDesc}</p></li>
             </div>

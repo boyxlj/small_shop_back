@@ -67,7 +67,6 @@ export default function UpdateInfoModel(props) {
       prePrice: data[0]?.prePrice,
       price: data[0]?.price,
       detailDesc: data[0]?.detailDesc,
-      tag: data[0]?.tag,
     })
   }
 

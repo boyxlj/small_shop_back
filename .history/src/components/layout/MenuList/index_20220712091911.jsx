@@ -9,6 +9,7 @@ export default function MenuList(props) {
   const location = useLocation()
   const { collapsed } = props
   let path =null 
+  // const path = location.pathname
   location.pathname=="/"?path = "/welcome":path=location.pathname
   const selectItem = location.pathname
   //切换菜单项

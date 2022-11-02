@@ -66,7 +66,7 @@ export default function Details() {
           </li>
           <li><span>商品名称:</span>{item.title}</li>
           <li><span>基本描述:</span>{item.descs}</li>
-          {item.tag && <li><span>商品标签:</span> <Tag color="#87d068">{item.tag}</Tag></li>}
+          {item.tag && <li><span>商品标签:</span> <Tag color="cyan">{item.tag}</Tag></li>}
           <li><span>所属分类:</span><Tag color="#f50">{getCateGoryName(category, item.parent)}</Tag></li>
           {item.prePrice && <li><span>商品原价:</span> <Tag color="cyan">{item.prePrice}元</Tag></li>}
           <li><span>商品现价:</span> <Tag color="red">{item.price}元</Tag></li>
