@@ -14,7 +14,6 @@ export default function Order() {
   
 
   useEffect(()=>{
-    setLoading(true)
     const storePageOn = sessionStorage.getItem("OrderListPage")
     if(storePageOn){
       setPageOn(storePageOn)
@@ -66,7 +65,7 @@ export default function Order() {
       <Option value="3">待收货</Option>
     </Select>
       </div>
-      <OrderTable loading={loading} getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} orderData={orderData}/>
+      <OrderTable getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} orderData={orderData}/>
     </div>
   )
 }

@@ -99,7 +99,8 @@ export default function ShopTable(props) {
     navigate(`/details?detailId=${detailId}`)
   }
   return (
-    <Table loading={loading} pagination={
+    <Table pagination={
+      loading={loading}
       {
         onChange:(value)=>{
           document.documentElement.scrollTop=0

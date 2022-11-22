@@ -6,7 +6,7 @@ import { useDispatch, } from 'react-redux';
 import { changeIsShow } from "../../store"
 import { deleteCategory } from "../../../../api/request"
 export default function CategoryTable(props) {
-  const { categoryData, reLoad,loading } = props
+  const { categoryData, reLoad } = props
   const dispatch = useDispatch()
   const columns = [
     {
@@ -53,6 +53,6 @@ export default function CategoryTable(props) {
     message.success("删除成功")
   }
   return (
-    <Table loading={loading} columns={columns} rowKey="detailId" dataSource={categoryData} />
+    <Table columns={columns} rowKey="detailId" dataSource={categoryData} />
   )
 }

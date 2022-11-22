@@ -1,12 +1,16 @@
 import React from 'react'
-import { Button, Table, message, Popconfirm } from 'antd';
+import { Button,Tag, Table, message, Popconfirm } from 'antd';
 import style from "./style/index.module.scss"
 import { getDate } from "../../../../utils/time"
 import { deleteUser } from "../../../../api/request"
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeIsShow } from '../../store';
 export default function UserTable(props) {
-  const { userData,pageOn,getPageOn, reLoad ,loading} = props
+  const { userData,pageOn,getPageOn, reLoad } = props
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const columns = [
     {
@@ -18,7 +22,7 @@ export default function UserTable(props) {
       title: '用于头像',
       dataIndex: 'avatar',
       render: (text) => (
-        <img style={{width:'80px',height:'80px',objectFit:"cover",borderRadius:'50%'}} src={text} alt="" />
+        <img style={{width:'80px',height:'80px',objectFit:"cover"}} src={text} alt="" />
       ),
     },
     {
@@ -68,9 +72,12 @@ export default function UserTable(props) {
     reLoad()
     message.success("删除成功")
   }
- 
+  // //跳转详情
+  // const detail = (userId)=>{
+  //   // navigate(`/details?detailId=${detailId}`)
+  // }
   return (
-    <Table loading={loading} pagination={
+    <Table pagination={
       {
         onChange:(value)=>{
           document.documentElement.scrollTop=0

@@ -3,18 +3,21 @@ import OrderTable from './components/orderTable'
 import {selectAllOrder} from "../../api/request"
 import { useState } from 'react'
 import { useEffect } from 'react'
-import {Select} from "antd"
+import {Button,Select} from "antd"
 import style from "./style/index.module.scss"
+import {useNavigate} from "react-router-dom"
+import { useDispatch } from 'react-redux/es/exports'
+import { changeIsShow } from './store'
 const { Option } = Select;
 export default function Order() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [orderData,setOrderData] = useState([])
   const [pageOn,setPageOn] = useState(1)
   const [select,setSelect] = useState(null)
-  const [loading,setLoading] =useState(false) 
   
 
   useEffect(()=>{
-    setLoading(true)
     const storePageOn = sessionStorage.getItem("OrderListPage")
     if(storePageOn){
       setPageOn(storePageOn)
@@ -66,7 +69,7 @@ export default function Order() {
       <Option value="3">待收货</Option>
     </Select>
       </div>
-      <OrderTable loading={loading} getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} orderData={orderData}/>
+      <OrderTable getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} orderData={orderData}/>
     </div>
   )
 }

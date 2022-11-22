@@ -13,7 +13,6 @@ export default function Category() {
   const [categoryData,setCategoryData] = useState([])
   const [loading,setLoading] =useState(false) 
   useEffect(()=>{
-    setLoading(true)
     getCategoryData()
   },[])
   //获取商品分类
@@ -34,7 +33,7 @@ export default function Category() {
       <div className={style.add}>
         <Button onClick={()=>dispatch(changeIsShow({isShow:true}))} type='primary'>添加分类</Button>
       </div>
-      <CategoryTable loading={loading} reLoad={reLoad} categoryData={categoryData}/>
+      <CategoryTable reLoad={reLoad} categoryData={categoryData}/>
       <CateGoryDialog reLoad={reLoad}/>
     </div>
   )

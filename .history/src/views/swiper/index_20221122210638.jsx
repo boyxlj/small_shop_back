@@ -1,4 +1,5 @@
-import React,{useState,useEffect} from 'react' 
+import React,{useState,useEffect} from 'react'
+import style from "./style/index.module.scss" 
 import { Button ,Table} from 'antd'
 import { useDispatch } from 'react-redux'
 import {setEditorSwiper} from "./store"
@@ -10,14 +11,11 @@ export default function Swiper() {
   const [loading,setLoading] =useState(false) 
 
   useEffect(()=>{
-    setLoading(true)
     getSwiperData()
   },[])
   //获取商品信息
   const getSwiperData = async()=>{
-    const {data:res} = await selectIndexSwiper().finally(()=>{
-        setLoading(false)
-    })
+    const {data:res} = await selectIndexSwiper()
     // console.log(res)
     if(res.code!=200){
       setData([])

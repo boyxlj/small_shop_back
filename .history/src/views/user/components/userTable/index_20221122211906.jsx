@@ -18,7 +18,7 @@ export default function UserTable(props) {
       title: '用于头像',
       dataIndex: 'avatar',
       render: (text) => (
-        <img style={{width:'80px',height:'80px',objectFit:"cover",borderRadius:'50%'}} src={text} alt="" />
+        <img style={{width:'80px',height:'80px',objectFit:"cover"}} src={text} alt="" />
       ),
     },
     {

@@ -3,6 +3,7 @@ import { Button, Table, message, Popconfirm } from 'antd';
 import style from "./style/index.module.scss"
 import { getDate } from "../../../../utils/time"
 import { deleteUser } from "../../../../api/request"
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeIsShow } from '../../store';
 export default function UserTable(props) {
@@ -18,7 +19,7 @@ export default function UserTable(props) {
       title: '用于头像',
       dataIndex: 'avatar',
       render: (text) => (
-        <img style={{width:'80px',height:'80px',objectFit:"cover",borderRadius:'50%'}} src={text} alt="" />
+        <img style={{width:'80px',height:'80px',objectFit:"cover"}} src={text} alt="" />
       ),
     },
     {

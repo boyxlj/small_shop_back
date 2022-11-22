@@ -34,7 +34,7 @@ export default function Category() {
       <div className={style.add}>
         <Button onClick={()=>dispatch(changeIsShow({isShow:true}))} type='primary'>添加分类</Button>
       </div>
-      <CategoryTable loading={loading} reLoad={reLoad} categoryData={categoryData}/>
+      <CategoryTable reLoad={reLoad} categoryData={categoryData}/>
       <CateGoryDialog reLoad={reLoad}/>
     </div>
   )

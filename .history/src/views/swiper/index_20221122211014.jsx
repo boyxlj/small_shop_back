@@ -1,4 +1,5 @@
-import React,{useState,useEffect} from 'react' 
+import React,{useState,useEffect} from 'react'
+import style from "./style/index.module.scss" 
 import { Button ,Table} from 'antd'
 import { useDispatch } from 'react-redux'
 import {setEditorSwiper} from "./store"

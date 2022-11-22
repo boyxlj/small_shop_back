@@ -5,7 +5,7 @@ import { getDate } from "../../../../utils/time"
 import { deleteCategory } from "../../../../api/request"
 import { useNavigate } from 'react-router-dom';
 export default function ShopTable(props) {
-  const { shopData,pageOn,getPageOn, reLoad,loading } = props
+  const { shopData,pageOn,getPageOn, reLoad.loading } = props
   const navigate = useNavigate()
   const columns = [
     {
@@ -99,7 +99,7 @@ export default function ShopTable(props) {
     navigate(`/details?detailId=${detailId}`)
   }
   return (
-    <Table loading={loading} pagination={
+    <Table pagination={
       {
         onChange:(value)=>{
           document.documentElement.scrollTop=0

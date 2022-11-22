@@ -14,7 +14,7 @@ export default function Shop() {
   const [pageOn, setPageOn] = useState(1)
   const [type, setType] = useState(0)
   const [categoryData, setCategoryData] = useState([])
-
+  const [loading,setLoading] =useState(false) 
 
   const handleChange = (value) => {
     sessionStorage.removeItem("shopListPage")
@@ -23,6 +23,7 @@ export default function Shop() {
   };
 
   useEffect(() => {
+    setLoading(true)
     const storePageOn = sessionStorage.getItem("shopListPage")
     if (storePageOn) {
       setPageOn(storePageOn)
@@ -35,7 +36,9 @@ export default function Shop() {
 
   //获取所有商品
   const getShopData = async () => {
-    const { data: res } = await getShopList(type)
+    const { data: res } = await getShopList(type).finally(()=>{
+      setLoading(false)
+  })
     if (res.code != 200) return setShopData([])
     setShopData(res.data)
   }
@@ -75,7 +78,7 @@ export default function Shop() {
 
         </Select>
       </div>
-      <ShopTable getPageOn={(value) => getPageOn(value)} pageOn={pageOn} reLoad={reLoad} shopData={shopData} />
+      <ShopTable loading={loading} getPageOn={(value) => getPageOn(value)} pageOn={pageOn} reLoad={reLoad} shopData={shopData} />
       <ShopDialog reLoad={reLoad} />
     </div>
   )

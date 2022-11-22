@@ -8,31 +8,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeIsShow } from '../../store';
-export default function OrderTable(props) {
-  const { orderData,pageOn,getPageOn, reLoad } = props
+export default function UserTable(props) {
+  const { userData,pageOn,getPageOn, reLoad ,loading} = props
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // {
-  //   "orderId": 75,
-  //   "singleTotalPrice": 699,
-  //   "type": "3",
-  //   "orderNumber": "EWmAiUEj2CWrV-LqffxQX",
-  //   "createTime": "2022-07-03T11:57:18.000Z",
-  //   "sendTime": "",
-  //   "pay": "",
-  //   "detailId": 2,
-  //   "num": 1,
-  //   "price": 699,
-  //   "title": "小米6s",
-  //   "prePrice": "2199",
-  //   "titleImg": "https://res6.vmallres.com/pimages/product/6941487236916/428_428_91912968C8D4646CC08A14346A175E3CBF1844EB9FE11118mp.png",
-  //   "name": "娃哈哈1",
-  //   "phone": "1234567890",
-  //   "detailAddress": "河南省郑州市二七区"
-  // },
   const columns = [
     {
-      title: '订单号',
+      title: '序号',
       dataIndex: 'userId',
       render: (text) => <a>{text}</a>,
     },
@@ -105,6 +87,6 @@ export default function OrderTable(props) {
         defaultCurrent:1,
         hideOnSinglePage:true
       }
-    } columns={columns}  rowKey="orderNumber" dataSource={orderData} />
+    } columns={columns}  rowKey="userId" dataSource={userData} />
   )
 }

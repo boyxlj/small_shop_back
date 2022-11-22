@@ -14,10 +14,9 @@ export default function User() {
   const navigate = useNavigate()
   const [userData,setUserData] = useState([])
   const [pageOn,setPageOn] = useState(1)
-  const [loading,setLoading] =useState(false) 
+  
 
   useEffect(()=>{
-    setLoading(true)
     const storePageOn = sessionStorage.getItem("UserListPage")
     if(storePageOn){
       setPageOn(storePageOn)
@@ -29,9 +28,7 @@ export default function User() {
 
   //获取用户列表
   const getUserData = async ()=>{
-    const {data:res} = await selectAllUser().finally(()=>{
-      setLoading(false)
-  })
+    const {data:res} = await selectAllUser()
     if(res.code!=200) return setUserData([])
     setUserData(res.data)
   }
@@ -58,7 +55,7 @@ export default function User() {
       <div className={style.add}>
         <Button onClick={addUser} type='primary'>添加用户</Button>
       </div>
-      <UserTable loading={loading} getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} userData={userData}/>
+      <UserTable getPageOn={(value)=>getPageOn(value)} pageOn={pageOn}  reLoad={reLoad} userData={userData}/>
       <UserDialog reLoad={reLoad}/>
     </div>
   )

@@ -14,7 +14,6 @@ export default function Order() {
   
 
   useEffect(()=>{
-    setLoading(true)
     const storePageOn = sessionStorage.getItem("OrderListPage")
     if(storePageOn){
       setPageOn(storePageOn)

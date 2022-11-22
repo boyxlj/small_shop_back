@@ -4,8 +4,9 @@ import style from "./style/index.module.scss"
 import { getDate } from "../../../../utils/time"
 import { deleteOrder } from "../../../../api/request"
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 export default function OrderTable(props) {
-  const { orderData,pageOn,getPageOn, reLoad,loading} = props
+  const { orderData,pageOn,getPageOn, reLoad} = props
   const navigate = useNavigate()
 
   const columns = [
@@ -69,7 +70,6 @@ export default function OrderTable(props) {
 
   return (
     <Table
-    loading={loading}
     pagination={
       {
         onChange:(value)=>{

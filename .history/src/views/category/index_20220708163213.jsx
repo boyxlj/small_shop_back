@@ -11,16 +11,13 @@ import {changeIsShow} from "./store"
 export default function Category() {
   const dispatch = useDispatch()
   const [categoryData,setCategoryData] = useState([])
-  const [loading,setLoading] =useState(false) 
+
   useEffect(()=>{
-    setLoading(true)
     getCategoryData()
   },[])
   //获取商品分类
   const getCategoryData = async ()=>{
-    const {data:res} = await categoryList().finally(()=>{
-      setLoading(false)
-  })
+    const {data:res} = await categoryList()
     if(res.code!=200) return setCategoryData([])
     setCategoryData(res.data)
   }
@@ -34,7 +31,7 @@ export default function Category() {
       <div className={style.add}>
         <Button onClick={()=>dispatch(changeIsShow({isShow:true}))} type='primary'>添加分类</Button>
       </div>
-      <CategoryTable loading={loading} reLoad={reLoad} categoryData={categoryData}/>
+      <CategoryTable reLoad={reLoad} categoryData={categoryData}/>
       <CateGoryDialog reLoad={reLoad}/>
     </div>
   )
