@@ -1,6 +1,7 @@
 import Axios from "axios"
 
-Axios.defaults.baseURL = "http://localhost:3303/api"
+Axios.defaults.baseURL = "https://www.11e.top/api"
+
 
 Axios.interceptors.request.use(config=>{
   return config
