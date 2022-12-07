@@ -1,0 +1,14 @@
+import { message } from "antd"
+export const authControl = () => {
+  const auth = sessionStorage.getItem("secretKey")
+  if (auth == 'small-shop-xlj') {
+    return true
+  } else {
+    message.error("您没有权限操作")
+    return false
+  }
+}
+
+// export const authControl = ()=>{
+//   return true
+// }

@@ -1,0 +1,23 @@
+.box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  user-select: none;
+  background: #000;
+  .footer{
+    position: absolute;
+    bottom: 20px;
+  font-size: 20px;
+  }
+  .bg{
+    width: 70%;
+    height:80%;
+    position: relative;
+    top: -60px;
+    background-image: url("../../../assets/images/index.png");
+    // background-color: red;
+  }
+}
